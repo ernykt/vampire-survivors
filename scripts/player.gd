@@ -7,7 +7,6 @@ extends CharacterBody2D
 @onready var health_bar = $HealthBar
 @onready var gui = $GUI
 @onready var upgrade_options = $GUI/LevelPanel/UpgradeOptions
-@onready var BASIC_ENEMY = preload("res://resources/basic_enemy.tres")
 
 enum States {IDLE, WALKING}
 
@@ -20,7 +19,6 @@ var collected_upgrades : Array
 signal level_up
 
 func _ready():
-	BASIC_ENEMY.damage = 11
 	level_up.connect(player_level_up)
 
 func _physics_process(delta):
