@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var health_bar = $HealthBar
 @onready var gui = $GUI
 @onready var upgrade_options = $GUI/LevelPanel/UpgradeOptions
+@onready var BASIC_ENEMY = preload("res://resources/basic_enemy.tres")
 
 enum States {IDLE, WALKING}
 
@@ -14,10 +15,12 @@ var health = 100
 var level = 0
 var SPEED = 600
 var state = States.IDLE
+var collected_upgrades : Array
 
 signal level_up
 
 func _ready():
+	BASIC_ENEMY.damage = 11
 	level_up.connect(player_level_up)
 
 func _physics_process(delta):
@@ -42,8 +45,7 @@ func walking():
 	velocity = input_direction * SPEED
 	if not input_direction:
 		change_state(States.IDLE)
-
-
+		
 func shoot_fire_ball():
 	var fire_ball_instance = fire_ball.instantiate()
 	fire_ball_instance.global_position = self.global_position
@@ -60,7 +62,7 @@ func _on_fire_ball_timer_timeout():
 		for enemy in enemies:
 			if enemy.state != enemy.States.EXP and enemy.state != enemy.States.FOLLOW:
 				shoot_fire_ball()
-				continue
+				break
 				
 func get_closest_enemy():
 	var min_distance = 2147483647 #MAX INTEGER
@@ -100,8 +102,20 @@ func player_level_up():
 	var option_count = 0
 	while option_count < max_options:
 		var option_instance = upgrade.instantiate()
+		var size = Upgrades.UPGRADES.size()
+		var random_key = Upgrades.UPGRADES.keys()[randi() % size]
+		option_instance.item = random_key
 		upgrade_options.add_child(option_instance)
 		option_count += 1
-			
+
 func upgrade_character(upgrade):
-	print("test")
+	var option_children = upgrade_options.get_children()
+	for child in option_children:
+		child.queue_free()
+	match upgrade:
+		"food":
+			health_bar.value += 20
+			health += 20
+	gui.visible = false
+	get_tree().paused = false
+	

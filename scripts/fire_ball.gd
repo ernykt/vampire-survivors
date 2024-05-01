@@ -7,7 +7,7 @@ func _ready():
 	fire_ball.damage = 10.0
 	fire_ball.knockback = 100.0
 	fire_ball.travel_speed = 500.0
-
+	
 func _on_area_2d_body_entered(body):
 	if "Enemy" in body.name:
 		body.take_damage(fire_ball.damage)

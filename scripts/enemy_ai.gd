@@ -13,6 +13,7 @@ var direction
 var state = States.WALKING
 var damage
 var bodies
+
 func follow_state():
 	direction = global_position.direction_to(get_tree().get_first_node_in_group("player").global_position)
 	velocity = direction * speed * 2
@@ -35,7 +36,7 @@ func hurt_state():
 		change_state(States.EXP)
 
 func knockBack_state():
-	hurt_timer.start(0.25)
+	hurt_timer.start(0.5)
 	change_state(States.HURT)
 	
 func walking():
@@ -43,8 +44,8 @@ func walking():
 	direction = global_position.direction_to(get_tree().get_first_node_in_group("player").global_position)
 	velocity = direction * speed
 	
-func take_damage(damage):
-	health -= damage
+func take_damage(dmg):
+	health -= dmg
 
 func _ready():
 	speed = resource.movement_speed
@@ -74,8 +75,6 @@ func _physics_process(_delta):
 				body.health_bar.value -= damage
 				damage_timer.start(1.5)
 				
-			
-		
 	move_and_slide()
 
 func _on_hurt_timer_timeout():

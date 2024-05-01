@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqsiv58tnmpsb"]
 
 [ext_resource type="Script" path="res://scripts/enemy_ai.gd" id="1_8o308"]
-[ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://icon.svg" id="1_8sh60"]
 [ext_resource type="Resource" uid="uid://bmj80m0tmwn6d" path="res://resources/basic_enemy.tres" id="2_sbd3r"]
+[ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://sprites/icon.svg" id="3_ra14f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dvjd5"]
 radius = 66.1532
@@ -18,7 +18,7 @@ hurt_timer = NodePath("HurtTimer")
 damage_timer = NodePath("Area2D/DamageTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_8sh60")
+texture = ExtResource("3_ra14f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)

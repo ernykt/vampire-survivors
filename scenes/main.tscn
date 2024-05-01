@@ -1,7 +1,65 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvrcdkj6ysbjy"]
+[gd_scene load_steps=13 format=3 uid="uid://dvrcdkj6ysbjy"]
 
 [ext_resource type="PackedScene" uid="uid://bf4jsc2ea5esj" path="res://scenes/player.tscn" id="1_qra2v"]
 [ext_resource type="PackedScene" uid="uid://cqsiv58tnmpsb" path="res://scenes/basic_enemy.tscn" id="2_slr0c"]
+[ext_resource type="Script" path="res://scripts/enemy_resource.gd" id="3_it7sn"]
+[ext_resource type="PackedScene" uid="uid://b71yp8dpnqp0v" path="res://scenes/fire_ball.tscn" id="4_rajw8"]
+
+[sub_resource type="Resource" id="Resource_kqecp"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_dd5fb"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_wfhbx"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_p7e4o"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_tygx2"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_ru82e"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_jvl5f"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
+
+[sub_resource type="Resource" id="Resource_klwtu"]
+resource_local_to_scene = true
+script = ExtResource("3_it7sn")
+health = 20.0
+movement_speed = 100.0
+damage = 10.0
 
 [node name="Main" type="Node2D"]
 
@@ -16,31 +74,47 @@ offset_bottom = 40.0
 
 [node name="ProgressBar" type="ProgressBar" parent="Control"]
 layout_mode = 0
-offset_right = 1356.0
-offset_bottom = 55.0
+offset_left = 40.0
+offset_top = 2.0
+offset_right = 1396.0
+offset_bottom = 57.0
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 0
 offset_right = 73.0
 offset_bottom = 54.0
 
-[node name="BasicEnemy8" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(1086, 455)
+[node name="FireBall" parent="." instance=ExtResource("4_rajw8")]
+position = Vector2(3236, 1404)
 
 [node name="BasicEnemy" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(-82, 440)
+position = Vector2(-530, 247)
+resource = SubResource("Resource_kqecp")
 
 [node name="BasicEnemy2" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(-879, 380)
+position = Vector2(-331, 31)
+resource = SubResource("Resource_dd5fb")
 
 [node name="BasicEnemy3" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(-331, 622)
+position = Vector2(-361, 523)
+resource = SubResource("Resource_wfhbx")
 
 [node name="BasicEnemy4" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(-489, 858)
+position = Vector2(1063, 998)
+resource = SubResource("Resource_p7e4o")
 
 [node name="BasicEnemy5" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(-549, 373)
+position = Vector2(661, 1108)
+resource = SubResource("Resource_tygx2")
 
 [node name="BasicEnemy6" parent="." instance=ExtResource("2_slr0c")]
-position = Vector2(-250, 340)
+position = Vector2(1229, 400)
+resource = SubResource("Resource_ru82e")
+
+[node name="BasicEnemy7" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(178, 408)
+resource = SubResource("Resource_jvl5f")
+
+[node name="BasicEnemy8" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(436, 65)
+resource = SubResource("Resource_klwtu")
