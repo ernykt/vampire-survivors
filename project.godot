@@ -17,6 +17,7 @@ config/icon="res://sprites/icon.svg"
 
 [autoload]
 
+config="<null>"
 Upgrades="*res://scripts/upgrades.gd"
 config/icon="res://icon.svg"
 
