@@ -19,7 +19,6 @@ config/icon="res://sprites/icon.svg"
 
 config="<null>"
 Upgrades="*res://scripts/upgrades.gd"
-config/icon="res://icon.svg"
 
 [display]
 
