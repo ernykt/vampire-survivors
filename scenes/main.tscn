@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvrcdkj6ysbjy"]
+
+[ext_resource type="PackedScene" uid="uid://bf4jsc2ea5esj" path="res://scenes/player.tscn" id="1_qra2v"]
+[ext_resource type="PackedScene" uid="uid://cqsiv58tnmpsb" path="res://scenes/basic_enemy.tscn" id="2_slr0c"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_qra2v")]
+position = Vector2(729, 299)
+
+[node name="BasicEnemy2" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(155, 90)
+
+[node name="BasicEnemy" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(253, 624)
+
+[node name="BasicEnemy3" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(24, 225)
+
+[node name="BasicEnemy4" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(146, 387)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+offset_right = 1356.0
+offset_bottom = 55.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 54.0
+
+[node name="BasicEnemy5" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(1423, 205)
+
+[node name="BasicEnemy6" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(899, 636)
+
+[node name="BasicEnemy7" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(1147, 640)
+
+[node name="BasicEnemy8" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(1086, 455)
+
+[node name="BasicEnemy9" parent="." instance=ExtResource("2_slr0c")]
+position = Vector2(1182, 274)

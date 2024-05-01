@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf4jsc2ea5esj"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_aipmb"]
+[ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://icon.svg" id="2_5uynd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shomw"]
+size = Vector2(129, 125)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u0jdc"]
+radius = 229.367
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nxh8a"]
+radius = 91.6788
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_aipmb")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_5uynd")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -0.5)
+shape = SubResource("RectangleShape2D_shomw")
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="FireBallTimer" type="Timer" parent="Attack"]
+wait_time = 0.5
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_u0jdc")
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_nxh8a")
+
+[connection signal="timeout" from="Attack/FireBallTimer" to="." method="_on_fire_ball_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="CollectArea" to="." method="_on_collect_area_body_entered"]
