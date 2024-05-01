@@ -1,15 +1,34 @@
 extends CharacterBody2D
 
 @onready var fire_ball = preload("res://scenes/fire_ball.tscn")
+@onready var upgrade = preload("res://scenes/upgrade_option.tscn")
 @onready var progress_bar = $"../Control/ProgressBar"
 @onready var label = $"../Control/Label"
 @onready var health_bar = $HealthBar
+@onready var gui = $GUI
+@onready var upgrade_options = $GUI/LevelPanel/UpgradeOptions
 
 enum States {IDLE, WALKING}
+
 var health = 100
 var level = 0
 var SPEED = 600
 var state = States.IDLE
+
+signal level_up
+
+func _ready():
+	level_up.connect(player_level_up)
+
+func _physics_process(delta):
+	label.text = "Level " + str(level)
+	var close_enemy = get_closest_enemy()
+	match state:
+		States.IDLE:
+			idle()
+		States.WALKING:
+			walking()
+	move_and_slide()
 
 func change_state(new_state):
 	state = new_state
@@ -24,15 +43,6 @@ func walking():
 	if not input_direction:
 		change_state(States.IDLE)
 
-func _physics_process(delta):
-	label.text = "Level " + str(level)
-	var close_enemy = get_closest_enemy()
-	match state:
-		States.IDLE:
-			idle()
-		States.WALKING:
-			walking()
-	move_and_slide()
 
 func shoot_fire_ball():
 	var fire_ball_instance = fire_ball.instantiate()
@@ -78,7 +88,20 @@ func _on_collect_area_body_entered(body):
 			if progress_bar.value == progress_bar.max_value:
 				progress_bar.max_value = 1.1 * progress_bar.max_value
 				progress_bar.value = 0
-				level += 1
+				emit_signal("level_up")
 			body.queue_free()
 
+func player_level_up():
+	print("leveled up")
+	level += 1
+	gui.visible = true
+	get_tree().paused = true
+	var max_options = 3
+	var option_count = 0
+	while option_count < max_options:
+		var option_instance = upgrade.instantiate()
+		upgrade_options.add_child(option_instance)
+		option_count += 1
 			
+func upgrade_character(upgrade):
+	print("test")

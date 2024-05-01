@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt13jlrqn34lk"]
+
+[ext_resource type="Script" path="res://scripts/UpgradeOption.gd" id="1_t2vcb"]
+
+[node name="UpgradeOption" type="ColorRect"]
+custom_minimum_size = Vector2(250, 50)
+offset_right = 250.0
+offset_bottom = 50.0
+color = Color(0, 1, 1, 1)
+script = ExtResource("1_t2vcb")
+
+[node name="ItemDisplayer" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 27.0
+offset_bottom = 25.0
+color = Color(0, 0, 0, 1)
+
+[node name="ItemImage" type="TextureRect" parent="ItemDisplayer"]
+layout_mode = 0
+offset_right = 22.0
+offset_bottom = 21.0
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 2.0
+offset_right = 122.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "ITEM NAME"
+
+[node name="ItemDescription" type="Label" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 27.0
+offset_right = 94.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "ITEM DESCRIPTION"
+
+[node name="ItemLevel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 2.0
+offset_right = 234.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "LEVEL"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
