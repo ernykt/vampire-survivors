@@ -3,14 +3,16 @@ extends CharacterBody2D
 enum States {WALKING, KNOCKBACK, HURT, DEATH, EXP, FOLLOW}
 
 @export var resource : EnemyResource
-
-@onready var hurt_timer = $HurtTimer
+@export var area2d : Area2D
+@export var hurt_timer : Timer
+@export var damage_timer : Timer
 
 var speed
 var health
 var direction
 var state = States.WALKING
-
+var damage
+var bodies
 func follow_state():
 	direction = global_position.direction_to(get_tree().get_first_node_in_group("player").global_position)
 	velocity = direction * speed * 2
@@ -47,7 +49,8 @@ func take_damage(damage):
 func _ready():
 	speed = resource.movement_speed
 	health = resource.health
-
+	damage = resource.damage
+	
 func _physics_process(_delta):
 	match state:
 		States.WALKING:
@@ -62,8 +65,19 @@ func _physics_process(_delta):
 			exp_state()
 		States.FOLLOW:
 			follow_state()
+
+	bodies = area2d.get_overlapping_bodies()
+	for body in bodies:
+		if body.name == "Player":
+			if damage_timer.is_stopped():
+				body.health -= damage 
+				body.health_bar.value -= damage
+				damage_timer.start(1.5)
+				
+			
+		
 	move_and_slide()
-	
+
 func _on_hurt_timer_timeout():
 	if state != States.EXP and state != States.FOLLOW :
 		change_state(States.WALKING)

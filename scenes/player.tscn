@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_aipmb"]
 [ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://icon.svg" id="2_5uynd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_shomw"]
-size = Vector2(129, 125)
+[sub_resource type="CircleShape2D" id="CircleShape2D_u6ygi"]
+radius = 62.518
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u0jdc"]
 radius = 229.367
@@ -20,12 +20,12 @@ texture = ExtResource("2_5uynd")
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, -0.5)
-shape = SubResource("RectangleShape2D_shomw")
+shape = SubResource("CircleShape2D_u6ygi")
 
 [node name="Attack" type="Node2D" parent="."]
 
 [node name="FireBallTimer" type="Timer" parent="Attack"]
-wait_time = 0.5
+wait_time = 4096.0
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -41,6 +41,13 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_nxh8a")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -73.0
+offset_top = 65.0
+offset_right = 74.0
+offset_bottom = 92.0
+value = 100.0
 
 [connection signal="timeout" from="Attack/FireBallTimer" to="." method="_on_fire_ball_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

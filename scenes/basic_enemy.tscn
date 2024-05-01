@@ -1,25 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqsiv58tnmpsb"]
+[gd_scene load_steps=6 format=3 uid="uid://cqsiv58tnmpsb"]
 
 [ext_resource type="Script" path="res://scripts/enemy_ai.gd" id="1_8o308"]
 [ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://icon.svg" id="1_8sh60"]
 [ext_resource type="Resource" uid="uid://bmj80m0tmwn6d" path="res://resources/basic_enemy.tres" id="2_sbd3r"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_antrk"]
-size = Vector2(126, 127)
+[sub_resource type="CircleShape2D" id="CircleShape2D_dvjd5"]
+radius = 66.1532
 
-[node name="BasicEnemy" type="CharacterBody2D" groups=["enemies"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ms4bt"]
+radius = 108.78
+
+[node name="BasicEnemy" type="CharacterBody2D" node_paths=PackedStringArray("area2d", "hurt_timer", "damage_timer") groups=["enemies"]]
 script = ExtResource("1_8o308")
 resource = ExtResource("2_sbd3r")
+area2d = NodePath("Area2D")
+hurt_timer = NodePath("HurtTimer")
+damage_timer = NodePath("Area2D/DamageTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8sh60")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_antrk")
+shape = SubResource("CircleShape2D_dvjd5")
 
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.25
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ms4bt")
+
+[node name="DamageTimer" type="Timer" parent="Area2D"]
+wait_time = 1.5
 one_shot = true
 
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]

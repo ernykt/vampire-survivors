@@ -3,9 +3,10 @@ extends CharacterBody2D
 @onready var fire_ball = preload("res://scenes/fire_ball.tscn")
 @onready var progress_bar = $"../Control/ProgressBar"
 @onready var label = $"../Control/Label"
+@onready var health_bar = $HealthBar
 
 enum States {IDLE, WALKING}
-
+var health = 100
 var level = 0
 var SPEED = 600
 var state = States.IDLE
@@ -32,7 +33,7 @@ func _physics_process(delta):
 		States.WALKING:
 			walking()
 	move_and_slide()
-	
+
 func shoot_fire_ball():
 	var fire_ball_instance = fire_ball.instantiate()
 	fire_ball_instance.global_position = self.global_position
@@ -72,9 +73,12 @@ func _on_area_2d_body_entered(body):
 			
 func _on_collect_area_body_entered(body):
 	if "Enemy" in body.name:
-		progress_bar.value += 50 
-		if progress_bar.value == progress_bar.max_value:
-			progress_bar.max_value = 1.1 * progress_bar.max_value
-			progress_bar.value = 0
-			level += 1
-		body.queue_free()
+		if body.state == body.States.FOLLOW:
+			progress_bar.value += 50 
+			if progress_bar.value == progress_bar.max_value:
+				progress_bar.max_value = 1.1 * progress_bar.max_value
+				progress_bar.value = 0
+				level += 1
+			body.queue_free()
+
+			
