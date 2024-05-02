@@ -13,6 +13,8 @@ radius = 229.367
 radius = 91.6788
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_aipmb")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -27,7 +29,9 @@ shape = SubResource("CircleShape2D_u6ygi")
 [node name="Attack" type="Node2D" parent="."]
 
 [node name="FireBallTimer" type="Timer" parent="Attack"]
-autostart = true
+
+[node name="NewFuncTester" type="Timer" parent="Attack"]
+one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
