@@ -23,7 +23,6 @@ func _ready():
 
 func _physics_process(delta):
 	label.text = "Level " + str(level)
-	var close_enemy = get_closest_enemy()
 	match state:
 		States.IDLE:
 			idle()
@@ -106,11 +105,11 @@ func player_level_up():
 		upgrade_options.add_child(option_instance)
 		option_count += 1
 
-func upgrade_character(upgrade):
+func upgrade_character(upgrd):
 	var option_children = upgrade_options.get_children()
 	for child in option_children:
 		child.queue_free()
-	match upgrade:
+	match upgrd:
 		"food":
 			health_bar.value += 20
 			health += 20
