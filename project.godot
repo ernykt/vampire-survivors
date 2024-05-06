@@ -17,10 +17,8 @@ config/icon="res://sprites/icon.svg"
 
 [autoload]
 
-config="<null>"
 Upgrades="*res://scripts/upgrades.gd"
 config/icon="res://icon.svg"
-Spells="*res://scripts/spells.gd"
 
 [display]
 
@@ -63,4 +61,5 @@ click={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"

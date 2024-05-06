@@ -8,5 +8,4 @@ func _on_timer_timeout():
 	$Path2D/PathFollow2D.progress = rng.randi_range(0, 5200)
 	var enemy_instance = enemy.instantiate()
 	enemy_instance.global_position = $Path2D/PathFollow2D/Marker2D.global_position
-	print(enemy_instance.global_position)
 	get_tree().root.add_child(enemy_instance, true)

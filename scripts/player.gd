@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var gui = $GUI
 @onready var upgrade_options = $GUI/LevelPanel/UpgradeOptions
 @onready var new_func_tester = $Attack/NewFuncTester
+@onready var player_sprite = $PlayerSprite
 
 enum States {IDLE, WALKING}
 
@@ -28,7 +29,7 @@ func _ready():
 	level_up.connect(player_level_up)
 	collected_weapons.append(fire_ball)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	label.text = "Level " + str(level)
 	match state:
 		States.IDLE:
@@ -42,11 +43,17 @@ func change_state(new_state):
 	state = new_state
 	
 func idle():
+	player_sprite.play("idle")
 	if Input.is_action_pressed("up") or Input.is_action_pressed("down") or Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 		change_state(States.WALKING)
 	
 func walking():
+	player_sprite.play("walk")
 	var input_direction = Input.get_vector("left", "right", "up", "down")
+	if input_direction == Vector2.LEFT:
+		player_sprite.flip_h = true
+	if input_direction == Vector2.RIGHT:
+		player_sprite.flip_h = false
 	velocity = input_direction * SPEED
 	if not input_direction:
 		change_state(States.IDLE)
@@ -95,7 +102,7 @@ func _on_collect_area_body_entered(body):
 		if body.state == body.States.FOLLOW:
 			progress_bar.value += 50 
 			if progress_bar.value == progress_bar.max_value:
-				progress_bar.max_value = 1.1 * progress_bar.max_value
+				progress_bar.max_value = 2 * progress_bar.max_value
 				progress_bar.value = 0
 				emit_signal("level_up")
 			body.queue_free()
@@ -136,7 +143,7 @@ func robust_shoot():
 			"fire_ball":
 				if new_func_tester.is_stopped():
 					general_shoot(weapon, weapon_name)
-					new_func_tester.start(0.1)
+					new_func_tester.start(.75)
 				
 func general_shoot(weapon_instance, weapon_name):
 	var weapon = weapon_instance.instantiate()
@@ -144,6 +151,11 @@ func general_shoot(weapon_instance, weapon_name):
 	var close_enemy = get_closest_enemy()
 	if close_enemy:
 		var distance_vector = weapon.global_position.direction_to(close_enemy.global_position)
+		#rotate the fireball according to enemy
+		weapon.rotate(self.global_position.angle_to_point(close_enemy.global_position))
 		get_tree().root.add_child(weapon)
+		match weapon_name:
+			"fire_ball":
+				weapon.weapon_attributes.damage += fireball_upgrade
 		weapon.apply_impulse(distance_vector * weapon.weapon_attributes.travel_speed)
 		

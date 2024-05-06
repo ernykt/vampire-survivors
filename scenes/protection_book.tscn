@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4jnxsltsiwhe"]
+
+[ext_resource type="Texture2D" uid="uid://87kb18i27vbs" path="res://sprites/book.png" id="1_375o2"]
+[ext_resource type="Script" path="res://scripts/protection_book.gd" id="1_eb5so"]
+
+[sub_resource type="Curve2D" id="Curve2D_bwyud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7bs82"]
+size = Vector2(9.8, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2k7da"]
+size = Vector2(106, 111)
+
+[node name="ProtectionBookPath" type="Path2D"]
+curve = SubResource("Curve2D_bwyud")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(-6, -134)
+rotation = 0.0802868
+rotates = false
+
+[node name="ProtectionBook" type="CharacterBody2D" parent="PathFollow2D"]
+rotation = -0.0802868
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_eb5so")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/ProtectionBook"]
+scale = Vector2(5, 5)
+texture = ExtResource("1_375o2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/ProtectionBook"]
+position = Vector2(-5.5, -17.5)
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_7bs82")
+
+[node name="Area2D" type="Area2D" parent="PathFollow2D/ProtectionBook"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/ProtectionBook/Area2D"]
+position = Vector2(-7, -23.5)
+shape = SubResource("RectangleShape2D_2k7da")
+
+[connection signal="body_entered" from="PathFollow2D/ProtectionBook/Area2D" to="PathFollow2D/ProtectionBook" method="_on_area_2d_body_entered"]

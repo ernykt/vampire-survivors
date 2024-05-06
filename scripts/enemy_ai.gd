@@ -6,6 +6,9 @@ enum States {WALKING, KNOCKBACK, HURT, DEATH, EXP, FOLLOW}
 @export var area2d : Area2D
 @export var hurt_timer : Timer
 @export var damage_timer : Timer
+@export var sprite : AnimatedSprite2D
+
+@onready var exp_sprite = load("res://sprites/exp.png")
 
 var speed
 var health
@@ -24,11 +27,12 @@ func exp_state():
 	set_collision_layer_value(4, true)
 	set_collision_mask_value(4, true)
 	set_modulate(Color(1,1,1))
-	self.scale = Vector2(0.5, 0.5)
+	sprite.play("exp")
+	self.sprite.scale = Vector2(7, 7)
 	
 func change_state(new_state):
-	#print(States.keys()[state])
 	state = new_state
+	#print(States.keys()[state])
 	
 func hurt_state():
 	set_modulate(Color("Red"))
@@ -69,7 +73,7 @@ func _physics_process(_delta):
 
 	bodies = area2d.get_overlapping_bodies()
 	for body in bodies:
-		if body.name == "Player":
+		if body.name == "Player" and self.state != States.EXP and self.state != States.FOLLOW:
 			if damage_timer.is_stopped():
 				body.health -= damage 
 				body.health_bar.value -= damage

@@ -1,10 +1,10 @@
 extends ColorRect
 
 @onready var player = get_tree().get_first_node_in_group("player")
-@onready var item_name = $ItemName
-@onready var item_description = $ItemDescription
 @onready var item_level = $ItemLevel
 @onready var item_image = $ItemDisplayer/ItemImage
+@onready var item_name = $ItemName
+@onready var item_description = $ItemDescription
 
 var item = null
 var mouse_over = false
@@ -17,7 +17,7 @@ func _ready():
 	item_name.text = Upgrades.UPGRADES[item]["displayname"]
 	item_description.text = Upgrades.UPGRADES[item]["details"]
 	item_level.text = Upgrades.UPGRADES[item]["level"]
-	#item_image.texture = load(Upgrades.UPGRADES[item]["icon"])
+	item_image.texture = load(Upgrades.UPGRADES[item]["icon"])
 	connect("selected_upgrade", Callable(player, "upgrade_character"))
 	
 func _input(event):

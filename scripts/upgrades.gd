@@ -1,20 +1,19 @@
 extends Node
 
 const ICON_PATH = "res://sprites/"
-
 const UPGRADES = {
 	"food": {
-		"icon": ICON_PATH + "icon.svg",
+		"icon": ICON_PATH + "food.png",
 		"displayname": "Food",
-		"details": "Heals you for 20 health",
+		"details": "+20 HP",
 		"level": "N/A",
 		"prerequisite": [],
 		"type": "item"
 	},
 	"fireball1": {
-		"icon": ICON_PATH + "icon.svg",
+		"icon": ICON_PATH + "Sprite-0001.png",
 		"displayname": "Fire Ball",
-		"details": "A fire ball is thrown at the closest enemy",
+		"details": "default weapon",
 		"level": "Level: 1",
 		"prerequisite": [],
 		"type": "weapon"

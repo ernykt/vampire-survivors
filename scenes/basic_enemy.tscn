@@ -1,24 +1,67 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqsiv58tnmpsb"]
+[gd_scene load_steps=11 format=3 uid="uid://cqsiv58tnmpsb"]
 
 [ext_resource type="Script" path="res://scripts/enemy_ai.gd" id="1_8o308"]
 [ext_resource type="Resource" uid="uid://bmj80m0tmwn6d" path="res://resources/basic_enemy.tres" id="2_sbd3r"]
-[ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://sprites/icon.svg" id="3_ra14f"]
+[ext_resource type="Texture2D" uid="uid://d1oork5plh1t6" path="res://sprites/basic_enemy.png" id="3_cp4eg"]
+[ext_resource type="Texture2D" uid="uid://b0ptux8tyk40h" path="res://sprites/exp.png" id="4_p300q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr67l"]
+atlas = ExtResource("3_cp4eg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dck8b"]
+atlas = ExtResource("3_cp4eg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohwum"]
+atlas = ExtResource("3_cp4eg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y81lf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr67l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dck8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohwum")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_p300q")
+}],
+"loop": true,
+"name": &"exp",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dvjd5"]
 radius = 66.1532
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ms4bt"]
-radius = 108.78
+radius = 67.0671
 
-[node name="BasicEnemy" type="CharacterBody2D" node_paths=PackedStringArray("area2d", "hurt_timer", "damage_timer") groups=["enemies"]]
+[node name="BasicEnemy" type="CharacterBody2D" node_paths=PackedStringArray("area2d", "hurt_timer", "damage_timer", "sprite") groups=["enemies"]]
 script = ExtResource("1_8o308")
 resource = ExtResource("2_sbd3r")
 area2d = NodePath("Area2D")
 hurt_timer = NodePath("HurtTimer")
 damage_timer = NodePath("Area2D/DamageTimer")
+sprite = NodePath("AnimatedSprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_ra14f")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_y81lf")
+autoplay = "default"
+frame = 2
+frame_progress = 0.986857
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)

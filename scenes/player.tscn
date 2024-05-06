@@ -1,7 +1,64 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf4jsc2ea5esj"]
+[gd_scene load_steps=15 format=3 uid="uid://bf4jsc2ea5esj"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_aipmb"]
-[ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://sprites/icon.svg" id="2_ed1fo"]
+[ext_resource type="Texture2D" uid="uid://bxqkovsr8i2lg" path="res://sprites/player_idle.png" id="2_ux6ig"]
+[ext_resource type="Texture2D" uid="uid://bpgm732b1k1gj" path="res://sprites/player.png" id="3_bklbd"]
+[ext_resource type="PackedScene" uid="uid://b4jnxsltsiwhe" path="res://scenes/protection_book.tscn" id="4_y00t8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfrp8"]
+atlas = ExtResource("2_ux6ig")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl8lc"]
+atlas = ExtResource("2_ux6ig")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucad5"]
+atlas = ExtResource("2_ux6ig")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5hll"]
+atlas = ExtResource("3_bklbd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8rfk"]
+atlas = ExtResource("3_bklbd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmnu8"]
+atlas = ExtResource("3_bklbd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5r8mu"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_yfrp8")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_fl8lc")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ucad5")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5hll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8rfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmnu8")
+}],
+"loop": false,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u6ygi"]
 radius = 62.518
@@ -19,8 +76,10 @@ script = ExtResource("1_aipmb")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_ed1fo")
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_5r8mu")
+animation = &"idle"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, -0.5)
@@ -48,10 +107,10 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_nxh8a")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -73.0
-offset_top = 65.0
-offset_right = 74.0
-offset_bottom = 92.0
+offset_left = -67.0
+offset_top = -110.0
+offset_right = 80.0
+offset_bottom = -83.0
 value = 100.0
 
 [node name="GUI" type="Control" parent="."]
@@ -91,6 +150,9 @@ offset_top = 50.0
 offset_right = 275.0
 offset_bottom = 100.0
 theme_override_constants/separation = 30
+
+[node name="ProtectionBookPath" parent="." instance=ExtResource("4_y00t8")]
+position = Vector2(0, 3)
 
 [connection signal="timeout" from="Attack/FireBallTimer" to="." method="_on_fire_ball_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

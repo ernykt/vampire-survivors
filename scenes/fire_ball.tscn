@@ -1,7 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://b71yp8dpnqp0v"]
+[gd_scene load_steps=8 format=3 uid="uid://b71yp8dpnqp0v"]
 
 [ext_resource type="Script" path="res://scripts/fire_ball.gd" id="1_mb7js"]
-[ext_resource type="Texture2D" uid="uid://yd2a36clix7n" path="res://sprites/icon.svg" id="2_2647j"]
+[ext_resource type="Texture2D" uid="uid://sbxmbt74l4s1" path="res://sprites/Sprite-0001.png" id="2_v8qx1"]
+[ext_resource type="Texture2D" uid="uid://b1160113o4ugl" path="res://sprites/Sprite-0002.png" id="3_xu4yy"]
+[ext_resource type="Texture2D" uid="uid://cga8uendrvbtr" path="res://sprites/Sprite-0003.png" id="4_xkso5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bp0a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_v8qx1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xu4yy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xu4yy")
+}, {
+"duration": 5.0,
+"texture": ExtResource("4_xkso5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lo56"]
 size = Vector2(126, 126)
@@ -15,9 +37,11 @@ collision_mask = 4
 gravity_scale = 0.0
 script = ExtResource("1_mb7js")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_2647j")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_8bp0a")
+frame = 2
+frame_progress = 0.216692
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)

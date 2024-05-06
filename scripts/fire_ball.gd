@@ -6,7 +6,7 @@ var enemy_location
 func _ready():
 	weapon_attributes.damage = 10.0
 	weapon_attributes.knockback = 100.0
-	weapon_attributes.travel_speed = 500.0
+	weapon_attributes.travel_speed = 1000.0
 	
 func _on_area_2d_body_entered(body):
 	if "Enemy" in body.name:
